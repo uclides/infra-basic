@@ -32,7 +32,7 @@ resource "google_compute_address" "ip_public" {
 }
 
 #create VM
-resource "google_compute_instance" "google-instance-core" {
+resource "google_compute_instance" "google-instance" {
   provider     = "google-beta"
   count        = 1
   name         = "${var.product}-${count.index + 1}-${var.region}-${var.environment}"
@@ -69,12 +69,12 @@ resource "google_compute_instance" "google-instance-core" {
 }
 
 #create instance group and attach vm
-resource "google_compute_instance_group" "coreweb-instance-group" {
+resource "google_compute_instance_group" "vm-instance-group" {
   count       = 1
   name        = "${var.instance_group_name}"
   description = ""
   instances   = [
-    "${element(google_compute_instance.google-instance-core.*.self_link, count.index)}",
+    "${element(google_compute_instance.google-instance.*.self_link, count.index)}",
   ]
 
   named_port {
@@ -89,7 +89,7 @@ resource "google_compute_instance_group" "coreweb-instance-group" {
   zone = "${var.zone}"
 }
 
-#crear backend
+#create backend
 resource "google_compute_backend_service" "staging_service" {
   count                   = 1
   name                    = "${var.name_bs}"
@@ -99,7 +99,7 @@ resource "google_compute_backend_service" "staging_service" {
   session_affinity        = "${var.session_affinity_bs}"
   affinity_cookie_ttl_sec = "${var.ttl_bs}"
   backend {
-    group = "${element(google_compute_instance_group.coreweb-instance-group.*.self_link, count.index)}"
+    group = "${element(google_compute_instance_group.vm-instance-group.*.self_link, count.index)}"
   }
 
   health_checks = [

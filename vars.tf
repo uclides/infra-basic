@@ -55,11 +55,6 @@ variable "type_disk_size_vm" {
   type        = string
 }
 
-variable "metadata" {
-  description = "Map of metadata values to pass to instances."
-  type        = map
-}
-
 variable "tags_vm" {
   description = "The tags for VM"
   type        = list(string)
