@@ -15,7 +15,7 @@ resource "google_storage_bucket_iam_binding" "binding" {
 resource "google_compute_firewall" "cf" {
   name    = "${var.name_fw}"
   network = "${var.vpc}"
-
+  project = "${var.project_id}"
   allow {
     protocol = "${var.protocol_fw}"
     ports    = "${var.ports_fw}"
