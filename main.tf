@@ -62,7 +62,6 @@ resource "google_compute_instance" "google-instance" {
   }*/
 
   service_account {
-    email  = "${var.service_account_email}"
     scopes = "${var.scopes_vm}"
   }
   tags                      = "${var.tags_vm}"
