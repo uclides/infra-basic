@@ -38,7 +38,7 @@ resource "google_compute_instance" "google-instance" {
   name         = "${var.product}-${count.index + 1}-${var.region}-${var.environment}"
   machine_type = "${var.machine_type}"
   zone         = "${var.zone}"
-  project      = "${var.project}"
+  project      = "${var.project_id}"
 
   boot_disk {
     initialize_params {
