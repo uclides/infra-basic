@@ -65,6 +65,12 @@ variable "labels" {
   type        = map
 }
 
+variable "scopes_vm" {
+  description = "The scopes for VM"
+  type        = list(string)
+}
+
+
 
 #instance group
 variable "instance_group_name" {
