@@ -30,6 +30,7 @@ resource "google_compute_address" "ip_public" {
   name         = "${var.name_ip_public}"
   labels       = "${var.labels}"
   project      = "${var.project_id}"
+  region       = "${var.region}"
 }
 
 #create VM
