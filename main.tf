@@ -74,6 +74,7 @@ resource "google_compute_instance_group" "vm-instance-group" {
   count       = 1
   name        = "${var.instance_group_name}"
   description = ""
+  project     = "${var.project_id}"
   instances   = [
     "${element(google_compute_instance.google-instance.*.self_link, count.index)}",
   ]
@@ -99,6 +100,7 @@ resource "google_compute_backend_service" "staging_service" {
   load_balancing_scheme   = "${var.schema_bs}"
   session_affinity        = "${var.session_affinity_bs}"
   affinity_cookie_ttl_sec = "${var.ttl_bs}"
+  project      = "${var.project_id}"
   backend {
     group = "${element(google_compute_instance_group.vm-instance-group.*.self_link, count.index)}"
   }
