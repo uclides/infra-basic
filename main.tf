@@ -29,6 +29,7 @@ resource "google_compute_address" "ip_public" {
   provider     = "google-beta"
   name         = "${var.name_ip_public}"
   labels       = "${var.labels}"
+  project      = "${var.project_id}"
 }
 
 #create VM
@@ -109,7 +110,7 @@ resource "google_compute_backend_service" "staging_service" {
 
 resource "google_compute_health_check" "health_check" {
   provider = "google-beta"
-
+  project      = "${var.project_id}"
   name     = "${var.name_hc}"
   http_health_check {
     request_path       = "${var.path_hc}" 
