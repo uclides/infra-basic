@@ -125,15 +125,17 @@ resource "google_compute_global_forwarding_rule" "default" {
   name       = "${var.name_fr}"
   target     = "${google_compute_target_http_proxy.default.self_link}"
   port_range = "${var.port_range_fr}"
+  project      = "${var.project_id}"
 }
 
 resource "google_compute_target_http_proxy" "default" {
   name        = "${var.name_tp}"
   url_map     = "${google_compute_url_map.default.self_link}"
+  project      = "${var.project_id}"
 }
 
 resource "google_compute_url_map" "default" {
   name            = "${var.name_um}"
   default_service = "${element(google_compute_backend_service.staging_service.*.self_link, 1)}"
-
+  project         = "${var.project_id}"
 }
